@@ -22,7 +22,72 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://www.prettytrivial.com/python-mocking-testing.html">Mocking and refactoring for Testing in Python</a></h1>
+                    <h1 class="entry-title"><a href="http://www.prettytrivial.com/implementing-with.html">Implementing With</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2018-01-29T00:00:00-05:00">
+                Published: Mon 29 January 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="http://www.prettytrivial.com/author/joshua-b-smith.html">Joshua B. Smith</a>
+        </address>
+<p>In <a href="http://www.prettytrivial.com/category/python.html">Python</a>.</p>
+<p>tags: <a href="http://www.prettytrivial.com/tag/python.html">python</a> </p>
+</footer><!-- /.post-info --><h1>The Problem</h1>
+<p>I wrote a library that includes a class to perform a set of operations
+on data in a file.  The file, once opened, must be closed, and the class
+implements <code>open</code> and <code>close</code> methods.</p>
+<p>This presents a burden to the user of this class in that they must close
+the file.  Sure, there are people who enjoy this kind of low level control,
+but we don't have to sacrifice that if we want a more usable class.</p>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">MySketch</span>:
+    <span class="kt">def</span> <span class="nx">open</span><span class="p">()</span><span class="o">:</span>
+        <span class="s2">&quot;&quot;&quot;open the resource&quot;&quot;&quot;</span>
+        <span class="nx">pass</span>
+
+    <span class="nx">def</span> <span class="nx">close</span><span class="p">()</span><span class="o">:</span>
+        <span class="s2">&quot;&quot;&quot;close the resource&quot;&quot;&quot;</span>
+        <span class="nx">pass</span>
+</pre></div>
+
+
+<p>It would be nice to implment whatever features in Python allow us to
+use <code>with</code>.</p>
+<h1>A Potential Solution</h1>
+<p>Thanks to (PEP
+343)[https://www.python.org/dev/peps/pep-0343/#introduction] we can
+implement code that creates our own block semantics.  There are a huge
+number of ways to do this, and
+(contextlib)[https://docs.python.org/3/library/contextlib.html] even
+provides many useful utilities for working with this language feature.</p>
+<p>One simple way to accomplish this is to implement the <code>__enter__</code> and
+<code>__exit__</code> methods in our class.  These context managers support the
+concept of of a runtime context.  More information can be found
+(here)[https://docs.python.org/3/library/stdtypes.html#typecontextmanager].</p>
+<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">MyWithSketch</span><span class="p">(</span><span class="nx">MySketch</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">__enter__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">open</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">self</span>
+
+    <span class="nx">def</span> <span class="nx">__exit__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">exc_type</span><span class="p">,</span> <span class="nx">exc_val</span><span class="p">,</span> <span class="nx">exc_tb</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">all</span><span class="p">([</span><span class="nx">x</span> <span class="nx">is</span> <span class="nx">None</span>
+                    <span class="k">for</span> <span class="nx">x</span>
+                    <span class="k">in</span> <span class="p">[</span><span class="nx">exc_type</span><span class="p">,</span> <span class="nx">exc_val</span><span class="p">,</span> <span class="nx">exc_tb</span><span class="p">]])</span>
+</pre></div>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="http://www.prettytrivial.com/python-mocking-testing.html" rel="bookmark"
+                           title="Permalink to Mocking and refactoring for Testing in Python">Mocking and refactoring for Testing in Python</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2018-01-06T00:00:00-05:00">
                 Published: Sat 06 January 2018
@@ -33,83 +98,12 @@
         </address>
 <p>In <a href="http://www.prettytrivial.com/category/python.html">Python</a>.</p>
 <p>tags: <a href="http://www.prettytrivial.com/tag/testing.html">testing</a> <a href="http://www.prettytrivial.com/tag/mocking.html">mocking</a> <a href="http://www.prettytrivial.com/tag/python.html">python</a> </p>
-</footer><!-- /.post-info --><h1>The Problem</h1>
-<p>(note: the full example can be found
-<a href="https://gist.github.com/kognate/ec3efec9b923b1714a05c3a2d151636c">here</a>).</p>
-<p>I was doing a code review and I came to the following function:</p>
-<div class="highlight"><pre><span></span>def send_email(email_from, email_to, email_subject, email_msg):
-    email_msg = MIMEText(email_msg)
-    email_msg[&#39;Subject&#39;] = email_subject
-    email_msg[&#39;From&#39;] = email_from
-    email_msg[&#39;To&#39;] = email_to
-
-    try:
-        smtpObj = smtplib.SMTP(os.getenv(&#39;SMTP_SERVER&#39;))
-        smtpObj.sendmail(email_from, email_to.split(&#39;,&#39;), email_msg.as_string())
-        smtpObj.quit()
-    except smtplib.SMTPException as exc:
-        error = exc.args
-        error_msg = error.message
-        print(error_msg)
-</pre></div>
-
-
-<p>There were no tests for this function,  and I couldn't really think of
-how best to test it myself. That is usually a sign that the code is
-not awesome and should be refactored.</p>
-<p>How?  With <code>with</code>!</p>
-<h1>A potential solution</h1>
-<p><code>smtplib</code> supports <code>with</code> and automatically closes the connection
-when used.  The old function would silently swallow any
-SMTPException which is never a good choice.</p>
-<div class="highlight"><pre><span></span>def send_email(email_from, email_to, email_subject, email_msg):
-
-    with smtplib.SMTP(os.getenv(&#39;SMTP_SERVER&#39;),&#39;localhost&#39;) as smtpObj:
-        email_msg = MIMEText(email_msg)
-        email_msg[&#39;Subject&#39;] = email_subject
-        email_msg[&#39;From&#39;] = email_from
-        email_msg[&#39;To&#39;] = email_to
-        smtpObj.sendmail(email_from, email_to.split(&#39;,&#39;), email_msg.as_string())
-</pre></div>
-
-
-<p>But this still leaves open the question of how to test this.  I don't
-want to actually send an email every time the tests are run.  The
-solution to that comes from the <code>mock</code> package in <code>unittest</code>.</p>
-<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">TestFunction</span><span class="p">(</span><span class="nx">TestCase</span><span class="p">)</span><span class="o">:</span>
-
-    <span class="kd">@patch</span><span class="p">.</span><span class="nx">object</span><span class="p">(</span><span class="nx">smtplib</span><span class="p">.</span><span class="nx">SMTP</span><span class="p">,</span> <span class="s1">&#39;sendmail&#39;</span><span class="p">)</span>
-    <span class="kd">@patch</span><span class="p">.</span><span class="nx">object</span><span class="p">(</span><span class="nx">smtplib</span><span class="p">.</span><span class="nx">SMTP</span><span class="p">,</span> <span class="s1">&#39;close&#39;</span><span class="p">)</span>
-    <span class="nx">def</span> <span class="nx">test_send_email</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">mock_close</span><span class="p">,</span> <span class="nx">mock_sendmail</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">test_message</span> <span class="o">=</span> <span class="nx">MIMEText</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
-        <span class="nx">test_message</span><span class="p">[</span><span class="s1">&#39;Subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TEST&#39;</span>
-        <span class="nx">test_message</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;testuser@test.com&#39;</span>
-        <span class="nx">test_message</span><span class="p">[</span><span class="s1">&#39;To&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;testuser@test.com,testuser2@test.com&#39;</span>
-
-        <span class="nx">send_email</span><span class="p">(</span><span class="nx">test_message</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">],</span>
-                   <span class="nx">test_message</span><span class="p">[</span><span class="s1">&#39;TO&#39;</span><span class="p">],</span>
-                   <span class="nx">test_message</span><span class="p">[</span><span class="s1">&#39;Subject&#39;</span><span class="p">],</span>
-                   <span class="s1">&#39;hello&#39;</span><span class="p">)</span>
-        <span class="nx">mock_close</span><span class="p">.</span><span class="nx">assert_called</span><span class="p">()</span>
-        <span class="nx">mock_sendmail</span><span class="p">.</span><span class="nx">assert_called_with</span><span class="p">(</span><span class="nx">test_message</span><span class="p">[</span><span class="s1">&#39;From&#39;</span><span class="p">],</span>
-                                         <span class="nx">test_message</span><span class="p">[</span><span class="s1">&#39;To&#39;</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
-                                         <span class="nx">test_message</span><span class="p">.</span><span class="nx">as_string</span><span class="p">())</span>
-</pre></div>
-
-
-<p>The <code>mock</code> library includes the ability to <code>patch</code> an existing class
-(including a class I don't own).  When I patch an object, I replace
-one (or more) of its methods with a new,  fake method.  </p>
-<p>This example uses the <code>@patch</code> decorator to replace two methods on
-the <code>SMTP</code> class.  The fist one, <code>close</code> (because decorators are
-applied in reverse order) must be overridden because close is
-automatically called when the block exits.
-The second, <code>sendmail</code> I call explicitly.</p>
-<p>When using <code>patch</code> I can check to make sure
-the method and its arguments have been called correctly. The new
-function now is easily testable and I don't have to provide a working
-SMTP server for my tests.</p>                </article>
-            </aside><!-- /#featured -->
+</footer><!-- /.post-info -->                <p>How mocks can help your testing</p>
+                <a class="readmore" href="http://www.prettytrivial.com/python-mocking-testing.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>

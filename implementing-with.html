@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>Pretty/Trivial - Joshua B. Smith</title>
+        <title>Implementing With</title>
         <link rel="stylesheet" href="http://www.prettytrivial.com/theme/css/main.css" />
         <link href="http://www.prettytrivial.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Pretty/Trivial Atom Feed" />
 
@@ -16,13 +16,18 @@
                 <h1><a href="http://www.prettytrivial.com/">Pretty/Trivial </a></h1>
                 <nav><ul>
                     <li><a href="http://www.prettytrivial.com/pages/contact.html">Contact</a></li>
-                    <li><a href="http://www.prettytrivial.com/category/python.html">Python</a></li>
+                    <li class="active"><a href="http://www.prettytrivial.com/category/python.html">Python</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://www.prettytrivial.com/implementing-with.html" rel="bookmark"
+           title="Permalink to Implementing With">Implementing With</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="http://www.prettytrivial.com/implementing-with.html">Implementing With</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2018-01-29T00:00:00-05:00">
                 Published: Mon 29 January 2018
@@ -33,7 +38,7 @@
         </address>
 <p>In <a href="http://www.prettytrivial.com/category/python.html">Python</a>.</p>
 <p>tags: <a href="http://www.prettytrivial.com/tag/python.html">python</a> </p>
-</footer><!-- /.post-info --><h1>The Problem</h1>
+</footer><!-- /.post-info -->      <h1>The Problem</h1>
 <p>I wrote a library that includes a class to perform a set of operations
 on data in a file.  The file, once opened, must be closed, and the class
 implements <code>open</code> and <code>close</code> methods.</p>
@@ -74,36 +79,11 @@ concept of of a runtime context.  More information can be found
         <span class="k">return</span> <span class="nx">all</span><span class="p">([</span><span class="nx">x</span> <span class="nx">is</span> <span class="nx">None</span>
                     <span class="k">for</span> <span class="nx">x</span>
                     <span class="k">in</span> <span class="p">[</span><span class="nx">exc_type</span><span class="p">,</span> <span class="nx">exc_val</span><span class="p">,</span> <span class="nx">exc_tb</span><span class="p">]])</span>
-</pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</pre></div>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="http://www.prettytrivial.com/python-mocking-testing.html" rel="bookmark"
-                           title="Permalink to Mocking and refactoring for Testing in Python">Mocking and refactoring for Testing in Python</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2018-01-06T00:00:00-05:00">
-                Published: Sat 06 January 2018
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="http://www.prettytrivial.com/author/joshua-b-smith.html">Joshua B. Smith</a>
-        </address>
-<p>In <a href="http://www.prettytrivial.com/category/python.html">Python</a>.</p>
-<p>tags: <a href="http://www.prettytrivial.com/tag/testing.html">testing</a> <a href="http://www.prettytrivial.com/tag/mocking.html">mocking</a> <a href="http://www.prettytrivial.com/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                <p>How mocks can help your testing</p>
-                <a class="readmore" href="http://www.prettytrivial.com/python-mocking-testing.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>

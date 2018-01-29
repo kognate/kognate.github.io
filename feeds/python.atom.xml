@@ -1,5 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Pretty/Trivial - Python</title><link href="http://www.prettytrivial.com/" rel="alternate"></link><link href="http://www.prettytrivial.com/feeds/python.atom.xml" rel="self"></link><id>http://www.prettytrivial.com/</id><updated>2018-01-06T00:00:00-05:00</updated><entry><title>Mocking and refactoring for Testing in Python</title><link href="http://www.prettytrivial.com/python-mocking-testing.html" rel="alternate"></link><published>2018-01-06T00:00:00-05:00</published><updated>2018-01-06T00:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-01-06:/python-mocking-testing.html</id><summary type="html">&lt;p&gt;How mocks can help your testing&lt;/p&gt;</summary><content type="html">&lt;h1&gt;The Problem&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Pretty/Trivial - Python</title><link href="http://www.prettytrivial.com/" rel="alternate"></link><link href="http://www.prettytrivial.com/feeds/python.atom.xml" rel="self"></link><id>http://www.prettytrivial.com/</id><updated>2018-01-29T00:00:00-05:00</updated><entry><title>Implementing With</title><link href="http://www.prettytrivial.com/implementing-with.html" rel="alternate"></link><published>2018-01-29T00:00:00-05:00</published><updated>2018-01-29T00:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-01-29:/implementing-with.html</id><summary type="html">&lt;p&gt;Simple example implementing with&lt;/p&gt;</summary><content type="html">&lt;h1&gt;The Problem&lt;/h1&gt;
+&lt;p&gt;I wrote a library that includes a class to perform a set of operations
+on data in a file.  The file, once opened, must be closed, and the class
+implements &lt;code&gt;open&lt;/code&gt; and &lt;code&gt;close&lt;/code&gt; methods.&lt;/p&gt;
+&lt;p&gt;This presents a burden to the user of this class in that they must close
+the file.  Sure, there are people who enjoy this kind of low level control,
+but we don't have to sacrifice that if we want a more usable class.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;MySketch&lt;/span&gt;:
+    &lt;span class="kt"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;open the resource&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+        &lt;span class="nx"&gt;pass&lt;/span&gt;
+
+    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;close the resource&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+        &lt;span class="nx"&gt;pass&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It would be nice to implment whatever features in Python allow us to
+use &lt;code&gt;with&lt;/code&gt;.&lt;/p&gt;
+&lt;h1&gt;A Potential Solution&lt;/h1&gt;
+&lt;p&gt;Thanks to (PEP
+343)[https://www.python.org/dev/peps/pep-0343/#introduction] we can
+implement code that creates our own block semantics.  There are a huge
+number of ways to do this, and
+(contextlib)[https://docs.python.org/3/library/contextlib.html] even
+provides many useful utilities for working with this language feature.&lt;/p&gt;
+&lt;p&gt;One simple way to accomplish this is to implement the &lt;code&gt;__enter__&lt;/code&gt; and
+&lt;code&gt;__exit__&lt;/code&gt; methods in our class.  These context managers support the
+concept of of a runtime context.  More information can be found
+(here)[https://docs.python.org/3/library/stdtypes.html#typecontextmanager].&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;MyWithSketch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;MySketch&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;__enter__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;self&lt;/span&gt;
+
+    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;__exit__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_tb&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="nx"&gt;is&lt;/span&gt; &lt;span class="nx"&gt;None&lt;/span&gt;
+                    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;
+                    &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;exc_type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_tb&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="python"></category></entry><entry><title>Mocking and refactoring for Testing in Python</title><link href="http://www.prettytrivial.com/python-mocking-testing.html" rel="alternate"></link><published>2018-01-06T00:00:00-05:00</published><updated>2018-01-06T00:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-01-06:/python-mocking-testing.html</id><summary type="html">&lt;p&gt;How mocks can help your testing&lt;/p&gt;</summary><content type="html">&lt;h1&gt;The Problem&lt;/h1&gt;
 &lt;p&gt;(note: the full example can be found
 &lt;a href="https://gist.github.com/kognate/ec3efec9b923b1714a05c3a2d151636c"&gt;here&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;I was doing a code review and I came to the following function:&lt;/p&gt;
