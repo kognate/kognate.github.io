@@ -9,3 +9,7 @@ a developer site (which this is) and it's free.
 While managing a site via Github pages is not as easy as something like
 SquareSpace or Wordpress, it's not difficult.  It has the additional advantage
 of being easy to manage and is free.
+
+This is available on the public internet, but there is nothing
+contained within these pages that should be a security risk or other
+issue.  I use this site to host transient content like this often.
