@@ -1,0 +1,11 @@
+Title: What is this?
+Date: 2018-12-31 10:00:00
+Category: info
+
+This is a simple site generator (it's call Pelican) and the whole site is
+served up via Github.  Github has a feature that allows users to publish 
+a developer site (which this is) and it's free.
+
+While managing a site via Github pages is not as easy as something like
+SquareSpace or Wordpress, it's not difficult.  It has the additional advantage
+of being easy to manage and is free.  
