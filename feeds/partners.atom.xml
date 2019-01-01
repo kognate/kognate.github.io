@@ -2,13 +2,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>www.prettytrivial.com - partners</title><link href="https://www.prettytrivial.com/" rel="alternate"></link><link href="https://www.prettytrivial.com/feeds/partners.atom.xml" rel="self"></link><id>https://www.prettytrivial.com/</id><updated>2018-12-31T10:00:00-05:00</updated><entry><title>Partner Data Entry</title><link href="https://www.prettytrivial.com/partner-data-entry.html" rel="alternate"></link><published>2018-12-31T10:00:00-05:00</published><updated>2018-12-31T10:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-12-31:/partner-data-entry.html</id><summary type="html">&lt;p&gt;A big chunk of the current charitypay backend is for handling the
 collection and management of partner-provided recipient information.
 Most of the functionality there can be replaced with a 
-&lt;a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12"&gt;google form&lt;/a&gt;.  While this
+&lt;a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12"&gt;google form like this one&lt;/a&gt;.  While this
 lacks branding, it is functional and reasonably secure.  &lt;/p&gt;
 &lt;h2&gt;How it would work&lt;/h2&gt;
-&lt;p&gt;Each partner organization would have …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A big chunk of the current charitypay backend is for handling the
+&lt;p&gt;Each partner …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A big chunk of the current charitypay backend is for handling the
 collection and management of partner-provided recipient information.
 Most of the functionality there can be replaced with a 
-&lt;a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12"&gt;google form&lt;/a&gt;.  While this
+&lt;a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12"&gt;google form like this one&lt;/a&gt;.  While this
 lacks branding, it is functional and reasonably secure.  &lt;/p&gt;
 &lt;h2&gt;How it would work&lt;/h2&gt;
 &lt;p&gt;Each partner organization would have their own form.  They would be
