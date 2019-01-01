@@ -1,118 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Pretty/Trivial</title><link href="http://www.prettytrivial.com/" rel="alternate"></link><link href="http://www.prettytrivial.com/feeds/all.atom.xml" rel="self"></link><id>http://www.prettytrivial.com/</id><updated>2018-01-29T00:00:00-05:00</updated><entry><title>Implementing With</title><link href="http://www.prettytrivial.com/implementing-with.html" rel="alternate"></link><published>2018-01-29T00:00:00-05:00</published><updated>2018-01-29T00:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-01-29:/implementing-with.html</id><summary type="html">&lt;p&gt;Simple example implementing with&lt;/p&gt;</summary><content type="html">&lt;h1&gt;The Problem&lt;/h1&gt;
-&lt;p&gt;I wrote a library that includes a class to perform a set of operations
-on data in a file.  The file, once opened, must be closed, and the class
-implements &lt;code&gt;open&lt;/code&gt; and &lt;code&gt;close&lt;/code&gt; methods.&lt;/p&gt;
-&lt;p&gt;This presents a burden to the user of this class in that they must close
-the file.  Sure, there are people who enjoy this kind of low level control,
-but we don't have to sacrifice that if we want a more usable class.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;MySketch&lt;/span&gt;:
-    &lt;span class="kt"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;open the resource&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-        &lt;span class="nx"&gt;pass&lt;/span&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>www.prettytrivial.com</title><link href="https://www.prettytrivial.com/" rel="alternate"></link><link href="https://www.prettytrivial.com/feeds/all.atom.xml" rel="self"></link><id>https://www.prettytrivial.com/</id><updated>2018-12-31T10:00:00-05:00</updated><entry><title>Donation Buttons</title><link href="https://www.prettytrivial.com/donation-buttons.html" rel="alternate"></link><published>2018-12-31T10:00:00-05:00</published><updated>2018-12-31T10:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-12-31:/donation-buttons.html</id><summary type="html">&lt;h1&gt;Buttons&lt;/h1&gt;
+&lt;p&gt;Services like Paypal have the ability to create payment/donation buttons.  This allows you to setup a method to capture donations
+without requiring any service or api.  The button is provided to you as a chunk of HTML that can be added
+to any web page.&lt;/p&gt;
+&lt;h2&gt;Donate Now Example …&lt;/h2&gt;</summary><content type="html">&lt;h1&gt;Buttons&lt;/h1&gt;
+&lt;p&gt;Services like Paypal have the ability to create payment/donation buttons.  This allows you to setup a method to capture donations
+without requiring any service or api.  The button is provided to you as a chunk of HTML that can be added
+to any web page.&lt;/p&gt;
+&lt;h2&gt;Donate Now Example&lt;/h2&gt;
+&lt;p&gt;Hi,  would you like to make a real difference in the life of a real person?  Here's your chance!
+This example of (really bad ad copy) tells you a story that makes it compelling for
+you to donate a small sum,  you can even make it a recurring donation.  &lt;/p&gt;
+&lt;form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"&gt;
+&lt;input type="hidden" name="cmd" value="_s-xclick" /&gt;
+&lt;input type="hidden" name="hosted_button_id" value="6TN8VQ7LVFHBC" /&gt;
+    &lt;input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" /&gt;
+&lt;img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" /&gt;
+&lt;/form&gt;
 
-    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;close the resource&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-        &lt;span class="nx"&gt;pass&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;It would be nice to implment whatever features in Python allow us to
-use &lt;code&gt;with&lt;/code&gt;.&lt;/p&gt;
-&lt;h1&gt;A Potential Solution&lt;/h1&gt;
-&lt;p&gt;Thanks to (PEP
-343)[https://www.python.org/dev/peps/pep-0343/#introduction] we can
-implement code that creates our own block semantics.  There are a huge
-number of ways to do this, and
-(contextlib)[https://docs.python.org/3/library/contextlib.html] even
-provides many useful utilities for working with this language feature.&lt;/p&gt;
-&lt;p&gt;One simple way to accomplish this is to implement the &lt;code&gt;__enter__&lt;/code&gt; and
-&lt;code&gt;__exit__&lt;/code&gt; methods in our class.  These context managers support the
-concept of of a runtime context.  More information can be found
-(here)[https://docs.python.org/3/library/stdtypes.html#typecontextmanager].&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;MyWithSketch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;MySketch&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;__enter__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;self&lt;/span&gt;
-
-    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;__exit__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_tb&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;close&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt; &lt;span class="nx"&gt;is&lt;/span&gt; &lt;span class="nx"&gt;None&lt;/span&gt;
-                    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;
-                    &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;exc_type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_val&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;exc_tb&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</content><category term="python"></category></entry><entry><title>Mocking and refactoring for Testing in Python</title><link href="http://www.prettytrivial.com/python-mocking-testing.html" rel="alternate"></link><published>2018-01-06T00:00:00-05:00</published><updated>2018-01-06T00:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-01-06:/python-mocking-testing.html</id><summary type="html">&lt;p&gt;How mocks can help your testing&lt;/p&gt;</summary><content type="html">&lt;h1&gt;The Problem&lt;/h1&gt;
-&lt;p&gt;(note: the full example can be found
-&lt;a href="https://gist.github.com/kognate/ec3efec9b923b1714a05c3a2d151636c"&gt;here&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;I was doing a code review and I came to the following function:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def send_email(email_from, email_to, email_subject, email_msg):
-    email_msg = MIMEText(email_msg)
-    email_msg[&amp;#39;Subject&amp;#39;] = email_subject
-    email_msg[&amp;#39;From&amp;#39;] = email_from
-    email_msg[&amp;#39;To&amp;#39;] = email_to
-
-    try:
-        smtpObj = smtplib.SMTP(os.getenv(&amp;#39;SMTP_SERVER&amp;#39;))
-        smtpObj.sendmail(email_from, email_to.split(&amp;#39;,&amp;#39;), email_msg.as_string())
-        smtpObj.quit()
-    except smtplib.SMTPException as exc:
-        error = exc.args
-        error_msg = error.message
-        print(error_msg)
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;There were no tests for this function,  and I couldn't really think of
-how best to test it myself. That is usually a sign that the code is
-not awesome and should be refactored.&lt;/p&gt;
-&lt;p&gt;How?  With &lt;code&gt;with&lt;/code&gt;!&lt;/p&gt;
-&lt;h1&gt;A potential solution&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;smtplib&lt;/code&gt; supports &lt;code&gt;with&lt;/code&gt; and automatically closes the connection
-when used.  The old function would silently swallow any
-SMTPException which is never a good choice.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def send_email(email_from, email_to, email_subject, email_msg):
-
-    with smtplib.SMTP(os.getenv(&amp;#39;SMTP_SERVER&amp;#39;),&amp;#39;localhost&amp;#39;) as smtpObj:
-        email_msg = MIMEText(email_msg)
-        email_msg[&amp;#39;Subject&amp;#39;] = email_subject
-        email_msg[&amp;#39;From&amp;#39;] = email_from
-        email_msg[&amp;#39;To&amp;#39;] = email_to
-        smtpObj.sendmail(email_from, email_to.split(&amp;#39;,&amp;#39;), email_msg.as_string())
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;But this still leaves open the question of how to test this.  I don't
-want to actually send an email every time the tests are run.  The
-solution to that comes from the &lt;code&gt;mock&lt;/code&gt; package in &lt;code&gt;unittest&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;TestFunction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;TestCase&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-
-    &lt;span class="kd"&gt;@patch&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;object&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;smtplib&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SMTP&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;sendmail&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="kd"&gt;@patch&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;object&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;smtplib&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;SMTP&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;close&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="nx"&gt;def&lt;/span&gt; &lt;span class="nx"&gt;test_send_email&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;mock_close&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;mock_sendmail&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-        &lt;span class="nx"&gt;test_message&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;MIMEText&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hello&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Subject&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;TEST&amp;#39;&lt;/span&gt;
-        &lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;From&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;testuser@test.com&amp;#39;&lt;/span&gt;
-        &lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;To&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;testuser@test.com,testuser2@test.com&amp;#39;&lt;/span&gt;
-
-        &lt;span class="nx"&gt;send_email&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;From&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
-                   &lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;TO&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
-                   &lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Subject&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
-                   &lt;span class="s1"&gt;&amp;#39;hello&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="nx"&gt;mock_close&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;assert_called&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-        &lt;span class="nx"&gt;mock_sendmail&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;assert_called_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;From&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
-                                         &lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;To&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;,&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-                                         &lt;span class="nx"&gt;test_message&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;as_string&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;The &lt;code&gt;mock&lt;/code&gt; library includes the ability to &lt;code&gt;patch&lt;/code&gt; an existing class
-(including a class I don't own).  When I patch an object, I replace
-one (or more) of its methods with a new,  fake method.  &lt;/p&gt;
-&lt;p&gt;This example uses the &lt;code&gt;@patch&lt;/code&gt; decorator to replace two methods on
-the &lt;code&gt;SMTP&lt;/code&gt; class.  The fist one, &lt;code&gt;close&lt;/code&gt; (because decorators are
-applied in reverse order) must be overridden because close is
-automatically called when the block exits.
-The second, &lt;code&gt;sendmail&lt;/code&gt; I call explicitly.&lt;/p&gt;
-&lt;p&gt;When using &lt;code&gt;patch&lt;/code&gt; I can check to make sure
-the method and its arguments have been called correctly. The new
-function now is easily testable and I don't have to provide a working
-SMTP server for my tests.&lt;/p&gt;</content><category term="testing"></category><category term="mocking"></category><category term="python"></category></entry></feed>
+&lt;p&gt;Here is some more information about why this is a legit thing and not a scam.&lt;/p&gt;</content><category term="donations"></category><category term="solutions"></category></entry><entry><title>Partner Data Entry</title><link href="https://www.prettytrivial.com/partner-data-entry.html" rel="alternate"></link><published>2018-12-31T10:00:00-05:00</published><updated>2018-12-31T10:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-12-31:/partner-data-entry.html</id><summary type="html">&lt;p&gt;A big chunk of the current charitypay backend is for handling the
+collection and management of partner-provided recipient information.
+Most of the functionality there can be replaced with a 
+&lt;a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12"&gt;google form&lt;/a&gt;.  While this
+lacks branding, it is functional and reasonably secure.  &lt;/p&gt;
+&lt;h2&gt;How it would work&lt;/h2&gt;
+&lt;p&gt;Each partner organization would have …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A big chunk of the current charitypay backend is for handling the
+collection and management of partner-provided recipient information.
+Most of the functionality there can be replaced with a 
+&lt;a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12"&gt;google form&lt;/a&gt;.  While this
+lacks branding, it is functional and reasonably secure.  &lt;/p&gt;
+&lt;h2&gt;How it would work&lt;/h2&gt;
+&lt;p&gt;Each partner organization would have their own form.  They would be
+sent a url to the form (like the one above) and be able to enter the
+information into the form but they would not need to have access to
+the submitted data.  Only you and the people you share the associated
+Google Sheet with would have access to the raw data.  This would allow
+the auditors to review the information.&lt;/p&gt;
+&lt;p&gt;Suveys could be handled in a similar manner.&lt;/p&gt;</content><category term="donations"></category><category term="solutions"></category><category term="partners"></category></entry><entry><title>What is this?</title><link href="https://www.prettytrivial.com/what-is-this.html" rel="alternate"></link><published>2018-12-31T10:00:00-05:00</published><updated>2018-12-31T10:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-12-31:/what-is-this.html</id><summary type="html">&lt;p&gt;This is a simple site generator (it's call Pelican) and the whole site is
+served up via Github.  Github has a feature that allows users to publish 
+a developer site (which this is) and it's free.&lt;/p&gt;
+&lt;p&gt;While managing a site via Github pages is not as easy as something like …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is a simple site generator (it's call Pelican) and the whole site is
+served up via Github.  Github has a feature that allows users to publish 
+a developer site (which this is) and it's free.&lt;/p&gt;
+&lt;p&gt;While managing a site via Github pages is not as easy as something like
+SquareSpace or Wordpress, it's not difficult.  It has the additional advantage
+of being easy to manage and is free.&lt;/p&gt;</content></entry></feed>

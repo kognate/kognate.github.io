@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>www.prettytrivial.com - info</title><link href="https://www.prettytrivial.com/" rel="alternate"></link><link href="https://www.prettytrivial.com/feeds/info.atom.xml" rel="self"></link><id>https://www.prettytrivial.com/</id><updated>2018-12-31T10:00:00-05:00</updated><entry><title>What is this?</title><link href="https://www.prettytrivial.com/what-is-this.html" rel="alternate"></link><published>2018-12-31T10:00:00-05:00</published><updated>2018-12-31T10:00:00-05:00</updated><author><name>Joshua B. Smith</name></author><id>tag:www.prettytrivial.com,2018-12-31:/what-is-this.html</id><summary type="html">&lt;p&gt;This is a simple site generator (it's call Pelican) and the whole site is
+served up via Github.  Github has a feature that allows users to publish 
+a developer site (which this is) and it's free.&lt;/p&gt;
+&lt;p&gt;While managing a site via Github pages is not as easy as something like …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is a simple site generator (it's call Pelican) and the whole site is
+served up via Github.  Github has a feature that allows users to publish 
+a developer site (which this is) and it's free.&lt;/p&gt;
+&lt;p&gt;While managing a site via Github pages is not as easy as something like
+SquareSpace or Wordpress, it's not difficult.  It has the additional advantage
+of being easy to manage and is free.&lt;/p&gt;</content></entry></feed>

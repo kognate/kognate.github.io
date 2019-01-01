@@ -2,79 +2,50 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>Pretty/Trivial</title>
-        <link rel="stylesheet" href="http://www.prettytrivial.com/theme/css/main.css" />
-        <link href="http://www.prettytrivial.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Pretty/Trivial Atom Feed" />
-
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <title>www.prettytrivial.com</title>
+        <link rel="stylesheet" href="https://www.prettytrivial.com/theme/css/main.css" />
+        <link href="https://www.prettytrivial.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="www.prettytrivial.com Atom Feed" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="http://www.prettytrivial.com/">Pretty/Trivial </a></h1>
+                <h1><a href="https://www.prettytrivial.com/">www.prettytrivial.com </a></h1>
                 <nav><ul>
-                    <li><a href="http://www.prettytrivial.com/pages/contact.html">Contact</a></li>
-                    <li><a href="http://www.prettytrivial.com/category/python.html">Python</a></li>
+                    <li><a href="https://www.prettytrivial.com/category/donations.html">donations</a></li>
+                    <li><a href="https://www.prettytrivial.com/category/info.html">info</a></li>
+                    <li><a href="https://www.prettytrivial.com/category/partners.html">partners</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://www.prettytrivial.com/implementing-with.html">Implementing With</a></h1>
+                    <h1 class="entry-title"><a href="https://www.prettytrivial.com/donation-buttons.html">Donation Buttons</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2018-01-29T00:00:00-05:00">
-                Published: Mon 29 January 2018
+        <abbr class="published" title="2018-12-31T10:00:00-05:00">
+                Published: Mon 31 December 2018
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://www.prettytrivial.com/author/joshua-b-smith.html">Joshua B. Smith</a>
+                By                         <a class="url fn" href="https://www.prettytrivial.com/author/joshua-b-smith.html">Joshua B. Smith</a>
         </address>
-<p>In <a href="http://www.prettytrivial.com/category/python.html">Python</a>.</p>
-<p>tags: <a href="http://www.prettytrivial.com/tag/python.html">python</a> </p>
-</footer><!-- /.post-info --><h1>The Problem</h1>
-<p>I wrote a library that includes a class to perform a set of operations
-on data in a file.  The file, once opened, must be closed, and the class
-implements <code>open</code> and <code>close</code> methods.</p>
-<p>This presents a burden to the user of this class in that they must close
-the file.  Sure, there are people who enjoy this kind of low level control,
-but we don't have to sacrifice that if we want a more usable class.</p>
-<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">MySketch</span>:
-    <span class="kt">def</span> <span class="nx">open</span><span class="p">()</span><span class="o">:</span>
-        <span class="s2">&quot;&quot;&quot;open the resource&quot;&quot;&quot;</span>
-        <span class="nx">pass</span>
+<p>In <a href="https://www.prettytrivial.com/category/donations.html">donations</a>.</p>
+<p>tags: <a href="https://www.prettytrivial.com/tag/donations.html">donations</a> <a href="https://www.prettytrivial.com/tag/solutions.html">solutions</a> </p>
+</footer><!-- /.post-info --><h1>Buttons</h1>
+<p>Services like Paypal have the ability to create payment/donation buttons.  This allows you to setup a method to capture donations
+without requiring any service or api.  The button is provided to you as a chunk of HTML that can be added
+to any web page.</p>
+<h2>Donate Now Example</h2>
+<p>Hi,  would you like to make a real difference in the life of a real person?  Here's your chance!
+This example of (really bad ad copy) tells you a story that makes it compelling for
+you to donate a small sum,  you can even make it a recurring donation.  </p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="hidden" name="hosted_button_id" value="6TN8VQ7LVFHBC" />
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+</form>
 
-    <span class="nx">def</span> <span class="nx">close</span><span class="p">()</span><span class="o">:</span>
-        <span class="s2">&quot;&quot;&quot;close the resource&quot;&quot;&quot;</span>
-        <span class="nx">pass</span>
-</pre></div>
-
-
-<p>It would be nice to implment whatever features in Python allow us to
-use <code>with</code>.</p>
-<h1>A Potential Solution</h1>
-<p>Thanks to (PEP
-343)[https://www.python.org/dev/peps/pep-0343/#introduction] we can
-implement code that creates our own block semantics.  There are a huge
-number of ways to do this, and
-(contextlib)[https://docs.python.org/3/library/contextlib.html] even
-provides many useful utilities for working with this language feature.</p>
-<p>One simple way to accomplish this is to implement the <code>__enter__</code> and
-<code>__exit__</code> methods in our class.  These context managers support the
-concept of of a runtime context.  More information can be found
-(here)[https://docs.python.org/3/library/stdtypes.html#typecontextmanager].</p>
-<div class="highlight"><pre><span></span><span class="kr">class</span> <span class="nx">MyWithSketch</span><span class="p">(</span><span class="nx">MySketch</span><span class="p">)</span><span class="o">:</span>
-    <span class="nx">def</span> <span class="nx">__enter__</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">open</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">self</span>
-
-    <span class="nx">def</span> <span class="nx">__exit__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">exc_type</span><span class="p">,</span> <span class="nx">exc_val</span><span class="p">,</span> <span class="nx">exc_tb</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">self</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">all</span><span class="p">([</span><span class="nx">x</span> <span class="nx">is</span> <span class="nx">None</span>
-                    <span class="k">for</span> <span class="nx">x</span>
-                    <span class="k">in</span> <span class="p">[</span><span class="nx">exc_type</span><span class="p">,</span> <span class="nx">exc_val</span><span class="p">,</span> <span class="nx">exc_tb</span><span class="p">]])</span>
-</pre></div>                </article>
+<p>Here is some more information about why this is a legit thing and not a scam.</p>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
@@ -83,36 +54,72 @@ concept of of a runtime context.  More information can be found
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://www.prettytrivial.com/python-mocking-testing.html" rel="bookmark"
-                           title="Permalink to Mocking and refactoring for Testing in Python">Mocking and refactoring for Testing in Python</a></h1>
+                    <h1><a href="https://www.prettytrivial.com/partner-data-entry.html" rel="bookmark"
+                           title="Permalink to Partner Data Entry">Partner Data Entry</a></h1>
                 </header>
 
                 <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2018-01-06T00:00:00-05:00">
-                Published: Sat 06 January 2018
+        <abbr class="published" title="2018-12-31T10:00:00-05:00">
+                Published: Mon 31 December 2018
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://www.prettytrivial.com/author/joshua-b-smith.html">Joshua B. Smith</a>
+                By                         <a class="url fn" href="https://www.prettytrivial.com/author/joshua-b-smith.html">Joshua B. Smith</a>
         </address>
-<p>In <a href="http://www.prettytrivial.com/category/python.html">Python</a>.</p>
-<p>tags: <a href="http://www.prettytrivial.com/tag/testing.html">testing</a> <a href="http://www.prettytrivial.com/tag/mocking.html">mocking</a> <a href="http://www.prettytrivial.com/tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->                <p>How mocks can help your testing</p>
-                <a class="readmore" href="http://www.prettytrivial.com/python-mocking-testing.html">read more</a>
+<p>In <a href="https://www.prettytrivial.com/category/partners.html">partners</a>.</p>
+<p>tags: <a href="https://www.prettytrivial.com/tag/donations.html">donations</a> <a href="https://www.prettytrivial.com/tag/solutions.html">solutions</a> <a href="https://www.prettytrivial.com/tag/partners.html">partners</a> </p>
+</footer><!-- /.post-info -->                <p>A big chunk of the current charitypay backend is for handling the
+collection and management of partner-provided recipient information.
+Most of the functionality there can be replaced with a 
+<a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12">google form</a>.  While this
+lacks branding, it is functional and reasonably secure.  </p>
+<h2>How it would work</h2>
+<p>Each partner organization would have …</p>
+                <a class="readmore" href="https://www.prettytrivial.com/partner-data-entry.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://www.prettytrivial.com/what-is-this.html" rel="bookmark"
+                           title="Permalink to What is this?">What is this?</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2018-12-31T10:00:00-05:00">
+                Published: Mon 31 December 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://www.prettytrivial.com/author/joshua-b-smith.html">Joshua B. Smith</a>
+        </address>
+<p>In <a href="https://www.prettytrivial.com/category/info.html">info</a>.</p>
+
+</footer><!-- /.post-info -->                <p>This is a simple site generator (it's call Pelican) and the whole site is
+served up via Github.  Github has a feature that allows users to publish 
+a developer site (which this is) and it's free.</p>
+<p>While managing a site via Github pages is not as easy as something like …</p>
+                <a class="readmore" href="https://www.prettytrivial.com/what-is-this.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
                 </section><!-- /#content -->
         <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://www.busaracenter.org/">Busara Center</a></li>
+                            <li><a href="https://developer.safaricom.co.ke/docs">mPesa API</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
                 <div class="social">
                         <h2>social</h2>
                         <ul>
-                            <li><a href="http://www.prettytrivial.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+                            <li><a href="https://www.prettytrivial.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                            <li><a href="https://github.com/kognate">kognate on Github</a></li>
-                            <li><a href="https://stackoverflow.com/users/story/118803">Stack Overflow</a></li>
-                            <li><a href="https://micro.blog/kognate">Micro.Blog</a></li>
+                            <li><a href="http://github.com/kognate">GitHub</a></li>
                         </ul>
                 </div><!-- /.social -->
         </section><!-- /#extras -->
