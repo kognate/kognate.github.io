@@ -6,7 +6,7 @@ Tags: donations, solutions, partners
 A big chunk of the current charitypay backend is for handling the
 collection and management of partner-provided recipient information.
 Most of the functionality there can be replaced with a 
-[google form](https://goo.gl/forms/i4rERVIjMQNQoLQ12).  While this
+[google form like this one](https://goo.gl/forms/i4rERVIjMQNQoLQ12).  While this
 lacks branding, it is functional and reasonably secure.  
 
 ## How it would work ##

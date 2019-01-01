@@ -22,4 +22,4 @@ you to donate a small sum,  you can even make it a recurring donation.
 <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
 </form>
 
-Here is some more information about why this is a legit thing and not a scam.
+You can add any text/html you want around these buttons.

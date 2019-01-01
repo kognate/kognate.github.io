@@ -13,12 +13,64 @@
                     <li><a href="/category/donations.html">donations</a></li>
                     <li><a href="/category/info.html">info</a></li>
                     <li><a href="/category/partners.html">partners</a></li>
+                    <li><a href="/category/start-here.html">Start Here</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/donation-buttons.html">Donation Buttons</a></h1>
+                    <h1 class="entry-title"><a href="/analysis.html">Analysis</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2018-12-31T10:00:00-05:00">
+                Published: Mon 31 December 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/joshua-b-smith.html">Joshua B. Smith</a>
+        </address>
+<p>In <a href="/category/start-here.html">Start Here</a>.</p>
+<p>tags: <a href="/tag/problems.html">problems</a> </p>
+</footer><!-- /.post-info --><h1>Current Codebase</h1>
+<h2>Abstract</h2>
+<p>I'm going to cover the existing set of applications describing the
+problems I found with them and suggestions on how to address some of
+these.  However,  I do not believe the current application platform to
+be a good choice to use going forward.  I am not recommending a
+rewrite, since history has deomonstrated that rewrites are almost always the 
+<a href="https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/">Wrong Choice</a>.</p>
+<h2>Backend</h2>
+<p>The current Django backend is very fragile.  </p>
+<h3>Database</h3>
+<p>Postgres is a good choice for any performant web application.  However,  </p>
+<h2>Frontend</h2>
+<h2>Conclusions</h2>
+<h1>Proposed Solutions</h1>
+<h2>Abstract</h2>
+<p>While I am not recommending a rewrite, I am recommending a totally
+different approach to the early phase of this project.  It is too
+early to write a system to manage this process and so it would be
+better to use existing tools to accomplish the same goals.  These are
+well-known e-commerce and cloud solutions that can handle everything
+    except automated mPesa payouts.  </p>
+<h2>Collecting Donations</h2>
+<p>Paypal and Stripe both support simple payment buttons.  You can see a
+live example <a href="/donation-buttons.html">here</a>.</p>
+<h2>Collecting Partner/Recipient Information</h2>
+<h2>Makeing Payments to Recipients</h2>
+<h2>Conclusions</h2>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/donation-buttons.html" rel="bookmark"
+                           title="Permalink to Donation Buttons">Donation Buttons</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2018-12-31T10:00:00-05:00">
                 Published: Mon 31 December 2018
@@ -29,27 +81,14 @@
         </address>
 <p>In <a href="/category/donations.html">donations</a>.</p>
 <p>tags: <a href="/tag/donations.html">donations</a> <a href="/tag/solutions.html">solutions</a> </p>
-</footer><!-- /.post-info --><h1>Buttons</h1>
+</footer><!-- /.post-info -->                <h1>Buttons</h1>
 <p>Services like Paypal have the ability to create payment/donation buttons.  This allows you to setup a method to capture donations
 without requiring any service or api.  The button is provided to you as a chunk of HTML that can be added
 to any web page.</p>
-<h2>Donate Now Example</h2>
-<p>Hi,  would you like to make a real difference in the life of a real person?  Here's your chance!
-This example of (really bad ad copy) tells you a story that makes it compelling for
-you to donate a small sum,  you can even make it a recurring donation.  </p>
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick" />
-<input type="hidden" name="hosted_button_id" value="6TN8VQ7LVFHBC" />
-    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-</form>
-
-<p>Here is some more information about why this is a legit thing and not a scam.</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+<h2>Donate Now Example …</h2>
+                <a class="readmore" href="/donation-buttons.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -71,10 +110,10 @@ you to donate a small sum,  you can even make it a recurring donation.  </p>
 </footer><!-- /.post-info -->                <p>A big chunk of the current charitypay backend is for handling the
 collection and management of partner-provided recipient information.
 Most of the functionality there can be replaced with a 
-<a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12">google form</a>.  While this
+<a href="https://goo.gl/forms/i4rERVIjMQNQoLQ12">google form like this one</a>.  While this
 lacks branding, it is functional and reasonably secure.  </p>
 <h2>How it would work</h2>
-<p>Each partner organization would have …</p>
+<p>Each partner …</p>
                 <a class="readmore" href="/partner-data-entry.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
